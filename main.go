@@ -185,6 +185,18 @@ func handleFocusContacts(ev *tcell.EventKey) *tcell.EventKey {
 	return nil
 }
 
+func shiftFocusTreeView(ev *tcell.EventKey) *tcell.EventKey {
+	ResetMsgSelection()
+	app.SetFocus(treeView)
+	return nil
+}
+
+func shiftFocusTextInput(ev *tcell.EventKey) *tcell.EventKey {
+	ResetMsgSelection()
+	app.SetFocus(textInput)
+	return nil
+}
+
 func handleSwitchPanels(ev *tcell.EventKey) *tcell.EventKey {
 	ResetMsgSelection()
 	if !textInput.HasFocus() {
@@ -376,6 +388,8 @@ func LoadShortcuts() {
 	keysMessages.SetKey(tcell.ModNone, tcell.KeyDown, handleMessagesMove(1))
 	keysMessages.SetKey(tcell.ModNone, tcell.KeyPgUp, handleMessagesMove(-10))
 	keysMessages.SetKey(tcell.ModNone, tcell.KeyPgDn, handleMessagesMove(10))
+	keysMessages.SetKey(tcell.ModNone, tcell.KeyLeft, shiftFocusTreeView)
+	keysMessages.SetKey(tcell.ModNone, tcell.KeyRight, shiftFocusTextInput)
 	keysMessages.SetRune(tcell.ModNone, 'k', handleMessagesMove(-1))
 	keysMessages.SetRune(tcell.ModNone, 'j', handleMessagesMove(1))
 	keysMessages.SetRune(tcell.ModNone, 'g', handleMessagesFirst)
